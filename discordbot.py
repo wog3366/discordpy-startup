@@ -1,17 +1,15 @@
-#discord.pyのインポート
-from asyncio import sleep
-import discord
-client = discord.Client()
+from discord.ext import commands
+import os
+import traceback
 
+bot = commands.Bot(command_prefix='/')
+token = os.environ['DISCORD_BOT_TOKEN']
 
-#BOTログイン処理
-@client.event
-async def on_ready():
-    print('Logged in as')
-    print(client.user.name)
-    print(client.user.id)
-    print('------')
-    await client.change_presence(game=discord.Game(name='!delchat *'))
+@bot.event
+async def on_command_error(ctx, error):
+    orig_error = getattr(error, "original", error)
+    error_msg = ''.join(traceback.TracebackException.from_exception(orig_error).format())
+    await ctx.send(error_msg)
 
 
 # BOT動作プログラム
@@ -50,4 +48,4 @@ async def on_message(message):
                 await sleep(5)
                 await client.delete_message(delmsg)
 
-client.run("***")
+bot.run(token)
