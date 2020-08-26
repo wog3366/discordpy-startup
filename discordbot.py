@@ -15,4 +15,4 @@ async def on_message(message):
         await client.send_message(message.channel, result)
     
 #ここにbotのアクセストークンを入力
-client.run('NDQ1OTM0ODkxOTc3NDA4NTQz.WvrbOw.fij9AXQWFWNfxK-Ysh0UOMbhZFk')
+client.run('')
